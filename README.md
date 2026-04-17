@@ -15,23 +15,35 @@ Las empresas no solo presentan dificultades en la gestión y seguimiento de inci
 ## Usuarios
 
 1. Usuario (Empleado)
-  -Crea tickets
-2. Técnico (Mantenimiento)
-  -Ve todos los tickets
-  -Los gestiona (estado, prioridad, asignación)
-  -Usa las sugerencias de la “IA”
-  -Documenta soluciones
-3. Administrador
-  -Gestiona usuarios
-  -Define áreas
-  -Configura el sistema
+
+   -Crea tickets
+3. Técnico (Mantenimiento)
+
+   -Ve todos los tickets
+
+   -Los gestiona (estado, prioridad, asignación)
+
+   -Usa las sugerencias de la “IA”
+
+   -Documenta soluciones
+5. Administrador
+
+   -Gestiona usuarios
+
+   -Define áreas
+
+   -Configura el sistema
 
 ## Funcionalidades principales
 
   ● Creación de tickets: Los usuarios pueden registrar incidencias indicando descripción, área y tipo de problema.
+ 
   ● Gestión de estados: Los tickets pueden cambiar de estado (pendiente, en proceso, resuelto), permitiendo hacer seguimiento claro.
+ 
   ● Asignación y prioridad: Los técnicos pueden asignarse tickets y definir su nivel de prioridad para organizar el trabajo.
+  
   ● Sugerencias inteligentes (soporte al técnico): El sistema sugiere posibles soluciones basadas en problemas similares previamente resueltos e IA.
+ 
   ● Registro de soluciones: El técnico documenta cómo resolvió el problema y si la sugerencia fue útil, alimenta la base de conocimiento.
 
 ## Stack tecnológico
