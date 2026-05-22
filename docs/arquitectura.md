@@ -2,7 +2,7 @@
 
 ## Patrón general
 
-El sistema sigue el patrón MVC simplificado implementado en PHP sin frameworks. Cada solicitud HTTP es recibida por un único punto de entrada que actúa como *front controller* y delega la ejecución al controlador y acción correspondientes.
+El sistema sigue el patrón MVC simplificado implementado en PHP. Cada solicitud HTTP es recibida por un único punto de entrada que actúa como *front controller* y delega la ejecución al controlador y acción correspondientes.
 
 ```
 Navegador → Servidor → Front controller → Controlador → Modelo → Vista → Navegador
