@@ -1,7 +1,3 @@
-Parece que el visualizador no está respondiendo ahora mismo. Te lo muestro acá directamente:
-
----
-
 # Arquitectura del sistema
 
 ## Patrón general
@@ -59,7 +55,3 @@ sistema-tickets/
 │   └── schema.sql
 └── index.php
 ```
-
----
-
-El archivo descargable ya está generado arriba. ¿Algún cambio?
