@@ -41,10 +41,30 @@ php artisan test
 
 ## Cobertura
 
-Laravel permite generar cobertura con:
+La cobertura se puede generar con:
 
 ```bash
 php artisan test --coverage
 ```
 
-Este comando requiere tener Xdebug o PCOV instalado y habilitado en PHP. Si la extension no esta disponible en la maquina local, los tests pueden ejecutarse igual con `php artisan test`, pero no se puede calcular el porcentaje de cobertura desde esa instalacion.
+Este comando requiere tener Xdebug o PCOV instalado y habilitado en PHP.
+
+En esta instalacion se habilito Xdebug 3.5.3 con `xdebug.mode=coverage`. Resultado actual:
+
+```text
+Tests:    6 passed (18 assertions)
+Total:    5.5 %
+Services\TicketRules  100.0%
+```
+
+Tambien se genero un reporte HTML navegable:
+
+```bash
+php artisan test --coverage-html docs/coverage
+```
+
+Archivo principal:
+
+```text
+docs/coverage/index.html
+```

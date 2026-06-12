@@ -1,6 +1,6 @@
 # TP4 - Reporte de ejecucion de tests
 
-Fecha de ejecucion: 2026-06-11
+Fecha de ejecucion: 2026-06-12
 
 ## Comando ejecutado
 
@@ -20,21 +20,60 @@ PASS regular user can only view own ticket
 PASS regular user can edit only own pending ticket
 
 Tests:    6 passed (18 assertions)
-Duration: 0.36s
+Duration: 1.01s
 ```
 
 ## Cobertura
 
-Se intento generar cobertura con:
+Se genero cobertura con:
 
 ```bash
 php artisan test --coverage
 ```
 
-Resultado de la instalacion local:
+Resultado principal:
 
 ```text
-ERROR  Code coverage driver not available. Did you install Xdebug or PCOV?
+Tests:    6 passed (18 assertions)
+Total:    5.5 %
 ```
 
-Para generar el porcentaje de cobertura es necesario instalar y habilitar Xdebug o PCOV en PHP. La suite de tests queda ejecutable por CLI y lista para generar cobertura cuando el entorno tenga alguno de esos drivers habilitado.
+Detalle destacado:
+
+```text
+Services\TicketRules  100.0%
+Models\User            77.8%
+```
+
+Tambien se genero un reporte HTML navegable con:
+
+```bash
+php artisan test --coverage-html docs/coverage
+```
+
+Archivo principal del reporte:
+
+```text
+docs/coverage/index.html
+```
+
+## Driver de cobertura
+
+Para poder calcular cobertura se instalo y habilito Xdebug 3.5.3 en PHP 8.2.31 con:
+
+```ini
+zend_extension=php_xdebug.dll
+xdebug.mode=coverage
+```
+
+PHP confirma que Xdebug esta activo con:
+
+```bash
+php -v
+```
+
+Salida esperada:
+
+```text
+with Xdebug v3.5.3
+```
