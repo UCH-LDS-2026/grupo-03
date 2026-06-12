@@ -8,13 +8,19 @@ use App\Models\Ticket;
 use App\Models\TicketCategory;
 use App\Models\TicketComment;
 use App\Models\User;
+use App\Services\TicketRules;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+    public function __construct(private readonly TicketRules $ticketRules)
+    {
+    }
+
     public function index(Request $request): View
     {
         $user = Auth::user();
@@ -27,8 +33,8 @@ class TicketController extends Controller
         if ($user->isStaff()) {
             $filters = $request->validate([
                 'q' => ['nullable', 'string', 'max:160'],
-                'status' => ['nullable', 'in:pending,in_progress,resolved,closed'],
-                'priority' => ['nullable', 'in:low,medium,high,urgent'],
+                'status' => ['nullable', Rule::in($this->ticketRules->validStatuses())],
+                'priority' => ['nullable', Rule::in($this->ticketRules->validPriorities())],
             ]);
 
             $ticketsQuery
@@ -75,7 +81,7 @@ class TicketController extends Controller
             'description' => ['required', 'string'],
             'area_id' => ['required', 'exists:areas,id'],
             'ticket_category_id' => ['required', 'exists:ticket_categories,id'],
-            'priority' => ['required', 'in:low,medium,high,urgent'],
+            'priority' => ['required', Rule::in($this->ticketRules->validPriorities())],
         ];
 
         if ($user->isStaff()) {
@@ -86,7 +92,7 @@ class TicketController extends Controller
 
         $ticket = Ticket::create($validated + [
             'requester_id' => $user->isStaff() ? $validated['requester_id'] : $user->id,
-            'status' => 'pending',
+            'status' => $this->ticketRules->initialStatus(),
         ]);
 
         return redirect()
@@ -152,8 +158,8 @@ class TicketController extends Controller
             'ticket_category_id' => ['required', 'exists:ticket_categories,id'],
             'requester_id' => ['required', 'exists:users,id'],
             'assigned_user_id' => ['nullable', 'exists:users,id'],
-            'status' => ['required', 'in:pending,in_progress,resolved,closed'],
-            'priority' => ['required', 'in:low,medium,high,urgent'],
+            'status' => ['required', Rule::in($this->ticketRules->validStatuses())],
+            'priority' => ['required', Rule::in($this->ticketRules->validPriorities())],
             'comment_body' => ['nullable', 'string'],
             'comment_is_internal' => ['nullable', 'boolean'],
             'solution_summary' => ['nullable', 'string', 'max:160'],
@@ -200,16 +206,13 @@ class TicketController extends Controller
     {
         $user = Auth::user();
 
-        abort_unless($user->isStaff() || $ticket->requester_id === $user->id, 403);
+        abort_unless($this->ticketRules->canView($user, $ticket), 403);
     }
 
     private function authorizeEdit(Ticket $ticket): void
     {
         $user = Auth::user();
 
-        abort_unless(
-            $user->isStaff() || ($ticket->requester_id === $user->id && $ticket->status === 'pending'),
-            403
-        );
+        abort_unless($this->ticketRules->canEdit($user, $ticket), 403);
     }
 }
