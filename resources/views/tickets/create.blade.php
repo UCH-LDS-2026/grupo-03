@@ -60,6 +60,21 @@
                 </div>
             @endif
 
+            @if ($canAssignTicket)
+                <div class="field">
+                    <label for="assigned_user_id">Asignado</label>
+                    <select id="assigned_user_id" name="assigned_user_id">
+                        <option value="">Sin asignar</option>
+                        @foreach ($assignableUsers as $assignableUser)
+                            <option value="{{ $assignableUser->id }}" @selected(old('assigned_user_id') == $assignableUser->id)>
+                                {{ $assignableUser->name }} - {{ \App\Support\TicketLabels::role($assignableUser->role) }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('assigned_user_id') <span class="error">{{ $message }}</span> @enderror
+                </div>
+            @endif
+
             <div class="field">
                 <label for="priority">Prioridad</label>
                 <select id="priority" name="priority" required>

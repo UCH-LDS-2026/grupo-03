@@ -33,7 +33,9 @@
                     <label for="area_id">Área</label>
                     <select id="area_id" name="area_id" required>
                         @foreach ($areas as $area)
-                            <option value="{{ $area->id }}" @selected(old('area_id', $ticket->area_id) == $area->id)>{{ $area->name }}</option>
+                            <option value="{{ $area->id }}" @selected(old('area_id', $ticket->area_id) == $area->id)>
+                                {{ $area->name }}{{ $area->trashed() ? ' (eliminada)' : '' }}
+                            </option>
                         @endforeach
                     </select>
                     @error('area_id') <span class="error">{{ $message }}</span> @enderror
@@ -43,7 +45,9 @@
                     <label for="ticket_category_id">Categoría</label>
                     <select id="ticket_category_id" name="ticket_category_id" required>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @selected(old('ticket_category_id', $ticket->ticket_category_id) == $category->id)>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @selected(old('ticket_category_id', $ticket->ticket_category_id) == $category->id)>
+                                {{ $category->name }}{{ $category->trashed() ? ' (eliminada)' : '' }}
+                            </option>
                         @endforeach
                     </select>
                     @error('ticket_category_id') <span class="error">{{ $message }}</span> @enderror
@@ -55,7 +59,9 @@
                     <label for="requester_id">Solicitante</label>
                     <select id="requester_id" name="requester_id" required>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}" @selected(old('requester_id', $ticket->requester_id) == $user->id)>{{ $user->name }}</option>
+                            <option value="{{ $user->id }}" @selected(old('requester_id', $ticket->requester_id) == $user->id)>
+                                {{ $user->name }}{{ $user->trashed() ? ' (eliminado)' : '' }}
+                            </option>
                         @endforeach
                     </select>
                     @error('requester_id') <span class="error">{{ $message }}</span> @enderror
@@ -65,10 +71,10 @@
                     <label for="assigned_user_id">Asignado</label>
                     <select id="assigned_user_id" name="assigned_user_id">
                         <option value="">Sin asignar</option>
-                        @foreach ($users as $user)
-                            @if ($user->isStaff())
-                                <option value="{{ $user->id }}" @selected(old('assigned_user_id', $ticket->assigned_user_id) == $user->id)>{{ $user->name }}</option>
-                            @endif
+                        @foreach ($assignableUsers as $assignableUser)
+                            <option value="{{ $assignableUser->id }}" @selected(old('assigned_user_id', $ticket->assigned_user_id) == $assignableUser->id)>
+                                {{ $assignableUser->name }} - {{ \App\Support\TicketLabels::role($assignableUser->role) }}{{ $assignableUser->trashed() ? ' (eliminado)' : '' }}
+                            </option>
                         @endforeach
                     </select>
                     @error('assigned_user_id') <span class="error">{{ $message }}</span> @enderror

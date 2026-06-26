@@ -41,7 +41,16 @@
                 <tr>
                     <td>{{ $area->name }}</td>
                     <td>{{ $area->description }}</td>
-                    <td><a href="{{ route('admin.areas.edit', $area) }}">Editar</a></td>
+                    <td>
+                        <div class="actions">
+                            <a href="{{ route('admin.areas.edit', $area) }}">Editar</a>
+                            <form method="POST" action="{{ route('admin.areas.destroy', $area) }}" onsubmit="return confirm('¿Eliminar esta área?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="link-button danger-link" type="submit">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

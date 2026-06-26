@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function (): void {
     ]);
 
     Route::prefix('admin')->name('admin.')->group(function (): void {
-        Route::resource('users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update']);
-        Route::resource('areas', AreaController::class)->only(['index', 'store', 'edit', 'update']);
-        Route::resource('categories', TicketCategoryController::class)->only(['index', 'store', 'edit', 'update']);
+        Route::resource('users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+        Route::resource('areas', AreaController::class)->only(['index', 'store', 'edit', 'update', 'destroy']);
+        Route::resource('categories', TicketCategoryController::class)->only(['index', 'store', 'edit', 'update', 'destroy']);
     });
 });

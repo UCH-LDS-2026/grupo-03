@@ -81,6 +81,21 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('status', 'Usuario actualizado correctamente.');
     }
 
+    public function destroy(User $user): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        if ($user->is(Auth::user())) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with('status', 'No podés eliminar tu propio usuario.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')->with('status', 'Usuario eliminado correctamente.');
+    }
+
     private function authorizeAdmin(): void
     {
         abort_unless(Auth::user()?->isAdmin(), 403);

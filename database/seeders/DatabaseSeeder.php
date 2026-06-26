@@ -51,6 +51,13 @@ class DatabaseSeeder extends Seeder
             'description' => 'Trámites, pagos, legajos y documentación.',
         ]);
 
+        $academicTechnician = User::create([
+            'name' => 'Técnico Académico',
+            'email' => 'academico@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'technician',
+        ]);
+
         $access = TicketCategory::create([
             'name' => 'Accesos',
             'description' => 'Problemas de usuario, clave o permisos.',
@@ -92,7 +99,7 @@ class DatabaseSeeder extends Seeder
             'area_id' => $academic->id,
             'ticket_category_id' => $infrastructure->id,
             'requester_id' => $user->id,
-            'assigned_user_id' => $technician->id,
+            'assigned_user_id' => $academicTechnician->id,
         ]);
 
         Solution::create([
