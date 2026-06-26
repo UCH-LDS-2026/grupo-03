@@ -18,8 +18,8 @@
                         <a href="{{ route('tickets.create') }}">Nuevo ticket</a>
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.users.index') }}">Usuarios</a>
-                            <a href="{{ route('admin.areas.index') }}">Areas</a>
-                            <a href="{{ route('admin.categories.index') }}">Categorias</a>
+                            <a href="{{ route('admin.areas.index') }}">Áreas</a>
+                            <a href="{{ route('admin.categories.index') }}">Categorías</a>
                         @endif
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

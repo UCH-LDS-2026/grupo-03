@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Editar area - Sistema Tickets')
+@section('title', 'Editar área - Sistema Tickets')
 
 @section('content')
     <section class="page-header">
         <div>
-            <h1>Editar area</h1>
+            <h1>Editar área</h1>
             <p class="muted">{{ $area->name }}</p>
         </div>
         <a href="{{ route('admin.areas.index') }}">Volver</a>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="field">
-            <label for="description">Descripcion</label>
+            <label for="description">Descripción</label>
             <textarea id="description" name="description">{{ old('description', $area->description) }}</textarea>
             @error('description') <span class="error">{{ $message }}</span> @enderror
         </div>

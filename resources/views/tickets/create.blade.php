@@ -6,7 +6,7 @@
     <section class="page-header">
         <div>
             <h1>Crear ticket</h1>
-            <p class="muted">Formulario minimo para registrar un problema.</p>
+            <p class="muted">Formulario mínimo para registrar un problema.</p>
         </div>
     </section>
 
@@ -14,20 +14,20 @@
         @csrf
 
         <div class="field">
-            <label for="title">Titulo</label>
+            <label for="title">Título</label>
             <input id="title" name="title" value="{{ old('title') }}" required>
             @error('title') <span class="error">{{ $message }}</span> @enderror
         </div>
 
         <div class="field">
-            <label for="description">Descripcion</label>
+            <label for="description">Descripción</label>
             <textarea id="description" name="description" required>{{ old('description') }}</textarea>
             @error('description') <span class="error">{{ $message }}</span> @enderror
         </div>
 
         <div class="grid">
             <div class="field">
-                <label for="area_id">Area</label>
+                <label for="area_id">Área</label>
                 <select id="area_id" name="area_id" required>
                     @foreach ($areas as $area)
                         <option value="{{ $area->id }}" @selected(old('area_id') == $area->id)>{{ $area->name }}</option>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="field">
-                <label for="ticket_category_id">Categoria</label>
+                <label for="ticket_category_id">Categoría</label>
                 <select id="ticket_category_id" name="ticket_category_id" required>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('ticket_category_id') == $category->id)>{{ $category->name }}</option>

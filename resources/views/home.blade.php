@@ -6,12 +6,12 @@
     <section class="page-header">
         <div>
             <h1>Panel inicial</h1>
-            <p class="muted">Resumen basico para registrar, cuantificar y gestionar problemas.</p>
+            <p class="muted">Resumen básico para registrar, cuantificar y gestionar problemas.</p>
         </div>
         <a class="button" href="{{ route('tickets.create') }}">Crear ticket</a>
     </section>
 
-    <section class="grid" aria-label="Metricas de tickets">
+    <section class="grid" aria-label="Métricas de tickets">
         <div class="panel stat">
             <span class="muted">Total</span>
             <strong>{{ $stats['total'] }}</strong>
@@ -34,7 +34,7 @@
         <div class="page-header">
             <div>
                 <h2>Tickets recientes</h2>
-                <p class="muted">Ultimos registros cargados en el sistema.</p>
+                <p class="muted">Últimos registros cargados en el sistema.</p>
             </div>
             <a href="{{ route('tickets.index') }}">Ver todos</a>
         </div>
@@ -42,9 +42,9 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Titulo</th>
-                    <th>Area</th>
-                    <th>Categoria</th>
+                    <th>Título</th>
+                    <th>Área</th>
+                    <th>Categoría</th>
                     <th>Estado</th>
                     <th>Prioridad</th>
                 </tr>
@@ -55,12 +55,12 @@
                         <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->title }}</a></td>
                         <td>{{ $ticket->area->name }}</td>
                         <td>{{ $ticket->category->name }}</td>
-                        <td><span class="badge">{{ $ticket->status }}</span></td>
-                        <td>{{ $ticket->priority }}</td>
+                        <td><span class="badge">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></td>
+                        <td>{{ \App\Support\TicketLabels::priority($ticket->priority) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">Todavia no hay tickets cargados.</td>
+                        <td colspan="5">Todavía no hay tickets cargados.</td>
                     </tr>
                 @endforelse
             </tbody>

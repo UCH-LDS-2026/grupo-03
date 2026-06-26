@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Areas - Sistema Tickets')
+@section('title', 'Áreas - Sistema Tickets')
 
 @section('content')
     <section class="page-header">
         <div>
-            <h1>Areas</h1>
-            <p class="muted">Sectores disponibles en la creacion de tickets.</p>
+            <h1>Áreas</h1>
+            <p class="muted">Sectores disponibles en la creación de tickets.</p>
         </div>
     </section>
 
@@ -20,19 +20,19 @@
             </div>
 
             <div class="field">
-                <label for="description">Descripcion</label>
+                <label for="description">Descripción</label>
                 <input id="description" name="description" value="{{ old('description') }}">
                 @error('description') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
-        <button class="button" type="submit">Agregar area</button>
+        <button class="button" type="submit">Agregar área</button>
     </form>
 
     <table class="table spaced">
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
             </tr>
         </thead>

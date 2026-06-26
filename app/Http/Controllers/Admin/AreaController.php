@@ -30,7 +30,7 @@ class AreaController extends Controller
             'description' => ['nullable', 'string'],
         ]));
 
-        return redirect()->route('admin.areas.index')->with('status', 'Area creada correctamente.');
+        return redirect()->route('admin.areas.index')->with('status', 'Área creada correctamente.');
     }
 
     public function edit(Area $area): View
@@ -49,7 +49,7 @@ class AreaController extends Controller
             'description' => ['nullable', 'string'],
         ]));
 
-        return redirect()->route('admin.areas.index')->with('status', 'Area actualizada correctamente.');
+        return redirect()->route('admin.areas.index')->with('status', 'Área actualizada correctamente.');
     }
 
     private function authorizeAdmin(): void

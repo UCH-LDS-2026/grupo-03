@@ -30,7 +30,7 @@ class TicketCategoryController extends Controller
             'description' => ['nullable', 'string'],
         ]));
 
-        return redirect()->route('admin.categories.index')->with('status', 'Categoria creada correctamente.');
+        return redirect()->route('admin.categories.index')->with('status', 'Categoría creada correctamente.');
     }
 
     public function edit(TicketCategory $category): View
@@ -49,7 +49,7 @@ class TicketCategoryController extends Controller
             'description' => ['nullable', 'string'],
         ]));
 
-        return redirect()->route('admin.categories.index')->with('status', 'Categoria actualizada correctamente.');
+        return redirect()->route('admin.categories.index')->with('status', 'Categoría actualizada correctamente.');
     }
 
     private function authorizeAdmin(): void

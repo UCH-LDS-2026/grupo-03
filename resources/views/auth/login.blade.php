@@ -6,7 +6,7 @@
     <section class="page-header">
         <div>
             <h1>Ingresar</h1>
-            <p class="muted">Acceso al sistema segun el rol asignado.</p>
+            <p class="muted">Acceso al sistema según el rol asignado.</p>
         </div>
     </section>
 
@@ -14,13 +14,13 @@
         @csrf
 
         <div class="field">
-            <label for="email">Email</label>
+            <label for="email">Correo electrónico</label>
             <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus>
             @error('email') <span class="error">{{ $message }}</span> @enderror
         </div>
 
         <div class="field">
-            <label for="password">Password</label>
+            <label for="password">Contraseña</label>
             <input id="password" name="password" type="password" required>
             @error('password') <span class="error">{{ $message }}</span> @enderror
         </div>

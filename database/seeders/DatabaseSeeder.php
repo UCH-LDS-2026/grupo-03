@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $technician = User::create([
-            'name' => 'Tecnico de Soporte',
+            'name' => 'Técnico de Soporte',
             'email' => 'tecnico@example.com',
             'password' => Hash::make('password'),
             'role' => 'technician',
@@ -42,13 +42,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $academic = Area::create([
-            'name' => 'Academica',
+            'name' => 'Académica',
             'description' => 'Consultas o incidentes vinculados a cursado, aulas y materias.',
         ]);
 
         Area::create([
-            'name' => 'Administracion',
-            'description' => 'Tramites, pagos, legajos y documentacion.',
+            'name' => 'Administración',
+            'description' => 'Trámites, pagos, legajos y documentación.',
         ]);
 
         $access = TicketCategory::create([
@@ -63,12 +63,12 @@ class DatabaseSeeder extends Seeder
 
         TicketCategory::create([
             'name' => 'Consulta general',
-            'description' => 'Solicitudes que requieren clasificacion posterior.',
+            'description' => 'Solicitudes que requieren clasificación posterior.',
         ]);
 
         $ticket = Ticket::create([
             'title' => 'No puedo ingresar al campus virtual',
-            'description' => 'El sistema indica credenciales invalidas aunque la clave fue actualizada.',
+            'description' => 'El sistema indica credenciales inválidas aunque la clave fue actualizada.',
             'status' => 'in_progress',
             'priority' => 'high',
             'area_id' => $systems->id,
@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
 
         $resolvedTicket = Ticket::create([
             'title' => 'Proyector del aula 3 sin imagen',
-            'description' => 'El equipo enciende pero no muestra senal desde la notebook.',
+            'description' => 'El equipo enciende pero no muestra señal desde la notebook.',
             'status' => 'resolved',
             'priority' => 'medium',
             'area_id' => $academic->id,
@@ -98,8 +98,8 @@ class DatabaseSeeder extends Seeder
         Solution::create([
             'ticket_id' => $resolvedTicket->id,
             'user_id' => $technician->id,
-            'summary' => 'Se cambio la entrada HDMI seleccionada.',
-            'details' => 'El proyector habia quedado configurado en VGA. Se selecciono HDMI 1 y se verifico imagen correctamente.',
+            'summary' => 'Se cambió la entrada HDMI seleccionada.',
+            'details' => 'El proyector había quedado configurado en VGA. Se seleccionó HDMI 1 y se verificó imagen correctamente.',
         ]);
     }
 }
