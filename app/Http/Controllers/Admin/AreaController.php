@@ -52,6 +52,15 @@ class AreaController extends Controller
         return redirect()->route('admin.areas.index')->with('status', 'Área actualizada correctamente.');
     }
 
+    public function destroy(Area $area): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        $area->delete();
+
+        return redirect()->route('admin.areas.index')->with('status', 'Área eliminada correctamente.');
+    }
+
     private function authorizeAdmin(): void
     {
         abort_unless(Auth::user()?->isAdmin(), 403);

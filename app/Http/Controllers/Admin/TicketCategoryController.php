@@ -52,6 +52,15 @@ class TicketCategoryController extends Controller
         return redirect()->route('admin.categories.index')->with('status', 'Categoría actualizada correctamente.');
     }
 
+    public function destroy(TicketCategory $category): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        $category->delete();
+
+        return redirect()->route('admin.categories.index')->with('status', 'Categoría eliminada correctamente.');
+    }
+
     private function authorizeAdmin(): void
     {
         abort_unless(Auth::user()?->isAdmin(), 403);

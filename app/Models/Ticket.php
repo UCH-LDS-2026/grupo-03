@@ -25,22 +25,22 @@ class Ticket extends Model
 
     public function area(): BelongsTo
     {
-        return $this->belongsTo(Area::class);
+        return $this->belongsTo(Area::class)->withTrashed();
     }
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(TicketCategory::class, 'ticket_category_id');
+        return $this->belongsTo(TicketCategory::class, 'ticket_category_id')->withTrashed();
     }
 
     public function requester(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'requester_id');
+        return $this->belongsTo(User::class, 'requester_id')->withTrashed();
     }
 
     public function assignedUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assigned_user_id');
+        return $this->belongsTo(User::class, 'assigned_user_id')->withTrashed();
     }
 
     public function comments(): HasMany

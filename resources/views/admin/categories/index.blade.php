@@ -41,7 +41,16 @@
                 <tr>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->description }}</td>
-                    <td><a href="{{ route('admin.categories.edit', $category) }}">Editar</a></td>
+                    <td>
+                        <div class="actions">
+                            <a href="{{ route('admin.categories.edit', $category) }}">Editar</a>
+                            <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" onsubmit="return confirm('¿Eliminar esta categoría?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="link-button danger-link" type="submit">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
