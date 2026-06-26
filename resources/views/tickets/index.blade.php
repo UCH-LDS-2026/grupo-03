@@ -62,8 +62,8 @@
                     <td>{{ $ticket->area->name }}</td>
                     <td>{{ $ticket->category->name }}</td>
                     <td>{{ $ticket->requester->name }}</td>
-                    <td><span class="badge">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></td>
-                    <td>{{ \App\Support\TicketLabels::priority($ticket->priority) }}</td>
+                    <td><span class="badge status-{{ $ticket->status }}">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></td>
+                    <td><span class="badge priority-{{ $ticket->priority }}">{{ \App\Support\TicketLabels::priority($ticket->priority) }}</span></td>
                     <td>
                         @if (auth()->user()->isStaff() || (auth()->id() === $ticket->requester_id && $ticket->status === 'pending'))
                             <a href="{{ route('tickets.edit', $ticket) }}">Editar</a>

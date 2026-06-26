@@ -22,11 +22,11 @@
         <div class="grid">
             <div>
                 <strong>Estado</strong>
-                <p><span class="badge">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></p>
+                <p><span class="badge status-{{ $ticket->status }}">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></p>
             </div>
             <div>
                 <strong>Prioridad</strong>
-                <p>{{ \App\Support\TicketLabels::priority($ticket->priority) }}</p>
+                <p><span class="badge priority-{{ $ticket->priority }}">{{ \App\Support\TicketLabels::priority($ticket->priority) }}</span></p>
             </div>
             <div>
                 <strong>Área</strong>
