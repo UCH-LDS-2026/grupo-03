@@ -127,13 +127,16 @@ class TicketController extends Controller
     public function show(Ticket $ticket): View
     {
         $this->authorizeView($ticket);
+        $user = Auth::user();
 
         $ticket->load([
             'area',
             'category',
             'requester',
             'assignedUser',
-            'comments.user',
+            'comments' => fn ($query) => $query
+                ->when(! $user->isStaff(), fn ($query) => $query->where('is_internal', false))
+                ->with('user'),
             'solution.user',
         ]);
 
