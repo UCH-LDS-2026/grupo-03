@@ -31,10 +31,14 @@
             <div class="grid">
                 <div class="field">
                     <label for="area_id">Área</label>
+                    @if ($ticket->area?->trashed())
+                        <p class="muted">Área actual eliminada: {{ $ticket->area->name }}. Para guardar cambios, seleccioná un área activa.</p>
+                    @endif
                     <select id="area_id" name="area_id" required>
+                        <option value="" disabled @selected(! old('area_id', $ticket->area?->trashed() ? '' : $ticket->area_id))>Seleccionar área</option>
                         @foreach ($areas as $area)
                             <option value="{{ $area->id }}" @selected(old('area_id', $ticket->area_id) == $area->id)>
-                                {{ $area->name }}{{ $area->trashed() ? ' (eliminada)' : '' }}
+                                {{ $area->name }}
                             </option>
                         @endforeach
                     </select>
@@ -43,10 +47,14 @@
 
                 <div class="field">
                     <label for="ticket_category_id">Categoría</label>
+                    @if ($ticket->category?->trashed())
+                        <p class="muted">Categoría actual eliminada: {{ $ticket->category->name }}. Para guardar cambios, seleccioná una categoría activa.</p>
+                    @endif
                     <select id="ticket_category_id" name="ticket_category_id" required>
+                        <option value="" disabled @selected(! old('ticket_category_id', $ticket->category?->trashed() ? '' : $ticket->ticket_category_id))>Seleccionar categoría</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" @selected(old('ticket_category_id', $ticket->ticket_category_id) == $category->id)>
-                                {{ $category->name }}{{ $category->trashed() ? ' (eliminada)' : '' }}
+                                {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
@@ -57,10 +65,15 @@
             <div class="grid">
                 <div class="field">
                     <label for="requester_id">Solicitante</label>
+                    @if ($ticket->requester?->trashed())
+                        <p class="muted">Solicitante actual eliminado: {{ $ticket->requester->name }}. Para guardar cambios, seleccioná un usuario activo.</p>
+                    @endif
+                    <input class="select-search" type="search" data-select-filter="requester_id" placeholder="Buscar solicitante">
                     <select id="requester_id" name="requester_id" required>
+                        <option value="" disabled @selected(! old('requester_id', $ticket->requester?->trashed() ? '' : $ticket->requester_id))>Seleccionar solicitante</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" @selected(old('requester_id', $ticket->requester_id) == $user->id)>
-                                {{ $user->name }}{{ $user->trashed() ? ' (eliminado)' : '' }}
+                                {{ $user->name }}
                             </option>
                         @endforeach
                     </select>
@@ -69,11 +82,15 @@
 
                 <div class="field">
                     <label for="assigned_user_id">Asignado</label>
+                    @if ($ticket->assignedUser?->trashed())
+                        <p class="muted">Asignado actual eliminado: {{ $ticket->assignedUser->name }}. Para guardar cambios, seleccioná un técnico o administrador activo.</p>
+                    @endif
+                    <input class="select-search" type="search" data-select-filter="assigned_user_id" placeholder="Buscar técnico o administrador">
                     <select id="assigned_user_id" name="assigned_user_id">
                         <option value="">Sin asignar</option>
                         @foreach ($assignableUsers as $assignableUser)
                             <option value="{{ $assignableUser->id }}" @selected(old('assigned_user_id', $ticket->assigned_user_id) == $assignableUser->id)>
-                                {{ $assignableUser->name }} - {{ \App\Support\TicketLabels::role($assignableUser->role) }}{{ $assignableUser->trashed() ? ' (eliminado)' : '' }}
+                                {{ $assignableUser->name }} - {{ \App\Support\TicketLabels::role($assignableUser->role) }}
                             </option>
                         @endforeach
                     </select>

@@ -15,7 +15,9 @@
                     <nav class="nav" aria-label="Principal">
                         <a href="{{ route('home') }}">Inicio</a>
                         <a href="{{ route('tickets.index') }}">Tickets</a>
-                        <a href="{{ route('solutions.index') }}">Soluciones</a>
+                        @if (auth()->user()->isStaff())
+                            <a href="{{ route('solutions.index') }}">Soluciones</a>
+                        @endif
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.users.index') }}">Usuarios</a>
                             <a href="{{ route('admin.areas.index') }}">Áreas</a>
@@ -40,5 +42,27 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        document.querySelectorAll('[data-select-filter]').forEach((input) => {
+            const select = document.getElementById(input.dataset.selectFilter);
+
+            if (! select) {
+                return;
+            }
+
+            input.addEventListener('input', () => {
+                const search = input.value.trim().toLowerCase();
+
+                Array.from(select.options).forEach((option) => {
+                    if (option.value === '') {
+                        option.hidden = false;
+                        return;
+                    }
+
+                    option.hidden = search !== '' && ! option.textContent.toLowerCase().includes(search);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
