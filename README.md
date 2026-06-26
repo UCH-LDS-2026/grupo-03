@@ -86,7 +86,54 @@ SQLite evita depender de MySQL, XAMPP o phpMyAdmin para levantar el proyecto. La
 
 No es obligatorio instalar MySQL, XAMPP ni phpMyAdmin para esta versión.
 
-## Instalación y ejecución local
+## Instalación automática
+
+El proyecto incluye scripts de instalación para preparar el entorno de forma más simple. Los scripts no borran la base de datos existente ni ejecutan comandos destructivos: si `database/database.sqlite` ya existe, se conserva.
+
+Antes de ejecutar el script, la computadora debe tener instalados:
+
+- Git
+- PHP 8.2 o superior
+- Composer
+
+Si falta alguno, el script muestra qué herramienta falta y se detiene.
+
+### Windows PowerShell
+
+Desde la carpeta del proyecto:
+
+```powershell
+.\setup.ps1
+```
+
+Si PowerShell bloquea la ejecución de scripts, ejecutar este comando una sola vez en esa terminal y volver a intentar:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+### Linux/macOS
+
+Desde la carpeta del proyecto:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+Cuando el script termina, iniciar el servidor local con:
+
+```bash
+php artisan serve
+```
+
+Ingresar a:
+
+```text
+http://localhost:8000
+```
+
+## Instalación manual
 
 Pasos:
 
@@ -118,6 +165,72 @@ http://localhost:8000
 ```
 
 La configuración por defecto usa SQLite, por lo que no hace falta instalar MySQL, XAMPP ni phpMyAdmin.
+
+## Instalación de herramientas necesarias
+
+Si la computadora no tiene las herramientas instaladas, se pueden instalar de esta forma:
+
+### Git
+
+Descargar e instalar desde:
+
+```text
+https://git-scm.com/downloads
+```
+
+Verificar la instalación:
+
+```bash
+git --version
+```
+
+### PHP
+
+Se requiere PHP 8.2 o superior. Verificar si ya está instalado:
+
+```bash
+php -v
+```
+
+En Windows se puede instalar PHP desde:
+
+```text
+https://windows.php.net/download/
+```
+
+También se puede usar una instalación que ya venga incluida con herramientas como Laragon, siempre que `php` esté disponible desde la terminal.
+
+En Linux, según la distribución:
+
+```bash
+sudo apt install php php-cli php-sqlite3 php-mbstring php-xml php-curl php-zip
+```
+
+### Composer
+
+Descargar e instalar desde:
+
+```text
+https://getcomposer.org/download/
+```
+
+Verificar la instalación:
+
+```bash
+composer --version
+```
+
+## Problemas frecuentes
+
+- Si aparece `php no se reconoce como comando`, PHP no está agregado al PATH.
+- Si aparece `composer no se reconoce como comando`, Composer no está instalado o no está agregado al PATH.
+- Si falla SQLite, revisar que exista el archivo `database/database.sqlite`.
+- Si la página carga pero no deja iniciar sesión, ejecutar `php artisan migrate --seed`.
+- Si el puerto 8000 está ocupado, iniciar el servidor con otro puerto:
+
+```bash
+php artisan serve --port=8080
+```
 
 ## Usuarios de demostración
 
