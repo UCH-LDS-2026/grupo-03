@@ -29,6 +29,7 @@
             <div class="field">
                 <label for="area_id">Área</label>
                 <select id="area_id" name="area_id" required>
+                    <option value="" disabled @selected(! old('area_id'))>Seleccionar área</option>
                     @foreach ($areas as $area)
                         <option value="{{ $area->id }}" @selected(old('area_id') == $area->id)>{{ $area->name }}</option>
                     @endforeach
@@ -39,6 +40,7 @@
             <div class="field">
                 <label for="ticket_category_id">Categoría</label>
                 <select id="ticket_category_id" name="ticket_category_id" required>
+                    <option value="" disabled @selected(! old('ticket_category_id'))>Seleccionar categoría</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('ticket_category_id') == $category->id)>{{ $category->name }}</option>
                     @endforeach
@@ -51,7 +53,9 @@
             @if ($canChooseRequester)
                 <div class="field">
                     <label for="requester_id">Solicitante</label>
+                    <input class="select-search" type="search" data-select-filter="requester_id" placeholder="Buscar solicitante">
                     <select id="requester_id" name="requester_id" required>
+                        <option value="" disabled @selected(! old('requester_id'))>Seleccionar solicitante</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" @selected(old('requester_id') == $user->id)>{{ $user->name }}</option>
                         @endforeach
@@ -63,6 +67,7 @@
             @if ($canAssignTicket)
                 <div class="field">
                     <label for="assigned_user_id">Asignado</label>
+                    <input class="select-search" type="search" data-select-filter="assigned_user_id" placeholder="Buscar técnico o administrador">
                     <select id="assigned_user_id" name="assigned_user_id">
                         <option value="">Sin asignar</option>
                         @foreach ($assignableUsers as $assignableUser)

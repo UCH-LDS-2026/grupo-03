@@ -15,6 +15,8 @@ class SolutionController extends Controller
     {
         $user = Auth::user();
 
+        abort_unless($user->isStaff(), 403);
+
         $filters = $request->validate([
             'q' => ['nullable', 'string', 'max:160'],
             'area_id' => ['nullable', 'exists:areas,id'],
@@ -22,11 +24,7 @@ class SolutionController extends Controller
         ]);
 
         $solutionsQuery = Solution::with(['ticket.area', 'ticket.category', 'ticket.requester', 'user'])
-            ->whereHas('ticket', function ($query) use ($user, $filters): void {
-                if (! $user->isStaff()) {
-                    $query->where('requester_id', $user->id);
-                }
-
+            ->whereHas('ticket', function ($query) use ($filters): void {
                 $query
                     ->when($filters['area_id'] ?? null, fn ($query, string $areaId) => $query->where('area_id', $areaId))
                     ->when($filters['ticket_category_id'] ?? null, fn ($query, string $categoryId) => $query->where('ticket_category_id', $categoryId));

@@ -147,15 +147,15 @@ class TicketController extends Controller
     {
         $this->authorizeEdit($ticket);
 
-        $ticket->load(['solution']);
+        $ticket->load(['area', 'category', 'requester', 'assignedUser', 'solution']);
         $user = Auth::user();
 
         return view('tickets.edit', [
             'ticket' => $ticket,
-            'areas' => Area::withTrashed()->orderBy('name')->get(),
-            'categories' => TicketCategory::withTrashed()->orderBy('name')->get(),
-            'users' => User::withTrashed()->orderBy('name')->get(),
-            'assignableUsers' => $this->assignableUsers($ticket),
+            'areas' => Area::orderBy('name')->get(),
+            'categories' => TicketCategory::orderBy('name')->get(),
+            'users' => User::orderBy('name')->get(),
+            'assignableUsers' => $this->assignableUsers(),
             'canEditAll' => $user->isStaff(),
         ]);
     }
@@ -182,19 +182,23 @@ class TicketController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:160'],
             'description' => ['required', 'string'],
-            'area_id' => ['required', 'exists:areas,id'],
-            'ticket_category_id' => ['required', 'exists:ticket_categories,id'],
-            'requester_id' => ['required', 'exists:users,id'],
+            'area_id' => [
+                'required',
+                Rule::exists('areas', 'id')->where(fn ($query) => $query->whereNull('deleted_at')),
+            ],
+            'ticket_category_id' => [
+                'required',
+                Rule::exists('ticket_categories', 'id')->where(fn ($query) => $query->whereNull('deleted_at')),
+            ],
+            'requester_id' => [
+                'required',
+                Rule::exists('users', 'id')->where(fn ($query) => $query->whereNull('deleted_at')),
+            ],
             'assigned_user_id' => [
                 'nullable',
-                Rule::exists('users', 'id')->where(function ($query) use ($ticket): void {
-                    $query
-                        ->whereIn('role', ['technician', 'admin'])
-                        ->where(function ($query) use ($ticket): void {
-                            $query
-                                ->whereNull('deleted_at')
-                                ->when($ticket->assigned_user_id, fn ($query) => $query->orWhere('id', $ticket->assigned_user_id));
-                        });
+                Rule::exists('users', 'id')->where(function ($query): void {
+                    $query->whereIn('role', ['technician', 'admin'])
+                        ->whereNull('deleted_at');
                 }),
             ],
             'status' => ['required', Rule::in($this->ticketRules->validStatuses())],
@@ -255,15 +259,9 @@ class TicketController extends Controller
         abort_unless($this->ticketRules->canEdit($user, $ticket), 403);
     }
 
-    private function assignableUsers(?Ticket $ticket = null)
+    private function assignableUsers()
     {
-        return User::withTrashed()
-            ->whereIn('role', ['technician', 'admin'])
-            ->where(function ($query) use ($ticket): void {
-                $query
-                    ->whereNull('deleted_at')
-                    ->when($ticket?->assigned_user_id, fn ($query) => $query->orWhere('id', $ticket->assigned_user_id));
-            })
+        return User::whereIn('role', ['technician', 'admin'])
             ->orderBy('name')
             ->get();
     }

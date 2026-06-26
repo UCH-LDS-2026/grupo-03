@@ -216,6 +216,10 @@ a:hover {
     font: inherit;
 }
 
+.select-search {
+    background: #ffffff;
+}
+
 .field textarea {
     min-height: 120px;
     resize: vertical;

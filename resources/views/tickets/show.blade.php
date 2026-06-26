@@ -67,10 +67,14 @@
     <section style="margin-top: 24px;">
         <h2>Solución</h2>
         @if ($ticket->solution)
-            <article class="panel">
-                <strong>{{ $ticket->solution->summary }}</strong>
-                <p>{{ $ticket->solution->details }}</p>
-            </article>
+            @if (auth()->user()->isStaff())
+                <article class="panel">
+                    <strong>{{ $ticket->solution->summary }}</strong>
+                    <p>{{ $ticket->solution->details }}</p>
+                </article>
+            @else
+                <p class="muted">Este ticket ya tiene una solución registrada.</p>
+            @endif
         @else
             <p class="muted">Este ticket todavía no tiene solución documentada.</p>
         @endif
