@@ -8,7 +8,6 @@
             <h1>Panel inicial</h1>
             <p class="muted">Resumen básico para registrar, cuantificar y gestionar problemas.</p>
         </div>
-        <a class="button" href="{{ route('tickets.create') }}">Crear ticket</a>
     </section>
 
     <section class="grid" aria-label="Métricas de tickets">

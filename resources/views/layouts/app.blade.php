@@ -15,7 +15,7 @@
                     <nav class="nav" aria-label="Principal">
                         <a href="{{ route('home') }}">Inicio</a>
                         <a href="{{ route('tickets.index') }}">Tickets</a>
-                        <a href="{{ route('tickets.create') }}">Nuevo ticket</a>
+                        <a href="{{ route('solutions.index') }}">Soluciones</a>
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.users.index') }}">Usuarios</a>
                             <a href="{{ route('admin.areas.index') }}">Áreas</a>

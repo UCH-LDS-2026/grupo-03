@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\TicketCategoryController;
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
     Route::get('/', HomeController::class)->name('home');
+    Route::get('/solutions', SolutionController::class)->name('solutions.index');
 
     Route::resource('tickets', TicketController::class)->only([
         'index',
