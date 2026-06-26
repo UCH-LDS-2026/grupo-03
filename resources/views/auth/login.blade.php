@@ -3,15 +3,16 @@
 @section('title', 'Ingresar - Sistema Tickets')
 
 @section('content')
-    <section class="page-header">
-        <div>
-            <h1>Ingresar</h1>
-            <p class="muted">Acceso al sistema según el rol asignado.</p>
-        </div>
-    </section>
-
-    <form class="panel form narrow" method="POST" action="{{ route('login.store') }}">
+    <form class="panel form login-card" method="POST" action="{{ route('login.store') }}">
         @csrf
+
+        <div class="login-header">
+            <span>Sistema Tickets</span>
+            <div>
+                <h1>Ingresar</h1>
+                <p class="muted">Acceso al sistema según el rol asignado.</p>
+            </div>
+        </div>
 
         <div class="field">
             <label for="email">Correo electrónico</label>
@@ -21,10 +22,15 @@
 
         <div class="field">
             <label for="password">Contraseña</label>
-            <input id="password" name="password" type="password" required>
+            <div class="password-control">
+                <input id="password" name="password" type="password" required>
+                <button class="link-button password-toggle" type="button" data-password-toggle="password">Ver</button>
+            </div>
             @error('password') <span class="error">{{ $message }}</span> @enderror
         </div>
 
         <button class="button" type="submit">Ingresar</button>
+
+        <p class="login-footer">Sistema Tickets 2026</p>
     </form>
 @endsection
