@@ -6,7 +6,7 @@
     <section class="page-header">
         <div>
             <h1>Usuarios</h1>
-            <p class="muted">Gestion de usuarios y roles.</p>
+            <p class="muted">Gestión de usuarios y roles.</p>
         </div>
         <a class="button" href="{{ route('admin.users.create') }}">Crear usuario</a>
     </section>
@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Email</th>
+                <th>Correo electrónico</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td><span class="badge">{{ $user->role }}</span></td>
+                    <td><span class="badge">{{ \App\Support\TicketLabels::role($user->role) }}</span></td>
                     <td><a href="{{ route('admin.users.edit', $user) }}">Editar</a></td>
                 </tr>
             @endforeach

@@ -15,7 +15,7 @@
         <form class="panel form filters" method="GET" action="{{ route('tickets.index') }}">
             <div class="field">
                 <label for="q">Buscar</label>
-                <input id="q" name="q" value="{{ request('q') }}" placeholder="Titulo o descripcion">
+                <input id="q" name="q" value="{{ request('q') }}" placeholder="Título o descripción">
             </div>
             <div class="field">
                 <label for="status">Estado</label>
@@ -45,9 +45,9 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Titulo</th>
-                <th>Area</th>
-                <th>Categoria</th>
+                <th>Título</th>
+                <th>Área</th>
+                <th>Categoría</th>
                 <th>Solicitante</th>
                 <th>Estado</th>
                 <th>Prioridad</th>
@@ -62,8 +62,8 @@
                     <td>{{ $ticket->area->name }}</td>
                     <td>{{ $ticket->category->name }}</td>
                     <td>{{ $ticket->requester->name }}</td>
-                    <td><span class="badge">{{ $ticket->status }}</span></td>
-                    <td>{{ $ticket->priority }}</td>
+                    <td><span class="badge">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></td>
+                    <td>{{ \App\Support\TicketLabels::priority($ticket->priority) }}</td>
                     <td>
                         @if (auth()->user()->isStaff() || (auth()->id() === $ticket->requester_id && $ticket->status === 'pending'))
                             <a href="{{ route('tickets.edit', $ticket) }}">Editar</a>
@@ -74,7 +74,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8">Todavia no hay tickets cargados.</td>
+                    <td colspan="8">Todavía no hay tickets cargados.</td>
                 </tr>
             @endforelse
         </tbody>

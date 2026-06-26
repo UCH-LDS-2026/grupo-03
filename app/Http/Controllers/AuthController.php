@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if (! Auth::attempt($credentials)) {
             return back()
-                ->withErrors(['email' => 'Las credenciales no son validas.'])
+                ->withErrors(['email' => 'Las credenciales no son válidas.'])
                 ->onlyInput('email');
         }
 

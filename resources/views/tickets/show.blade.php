@@ -22,18 +22,18 @@
         <div class="grid">
             <div>
                 <strong>Estado</strong>
-                <p><span class="badge">{{ $ticket->status }}</span></p>
+                <p><span class="badge">{{ \App\Support\TicketLabels::status($ticket->status) }}</span></p>
             </div>
             <div>
                 <strong>Prioridad</strong>
-                <p>{{ $ticket->priority }}</p>
+                <p>{{ \App\Support\TicketLabels::priority($ticket->priority) }}</p>
             </div>
             <div>
-                <strong>Area</strong>
+                <strong>Área</strong>
                 <p>{{ $ticket->area->name }}</p>
             </div>
             <div>
-                <strong>Categoria</strong>
+                <strong>Categoría</strong>
                 <p>{{ $ticket->category->name }}</p>
             </div>
             <div>
@@ -59,20 +59,20 @@
                     @endif
                 </article>
             @empty
-                <p class="muted">Todavia no hay comentarios.</p>
+                <p class="muted">Todavía no hay comentarios.</p>
             @endforelse
         </div>
     </section>
 
     <section style="margin-top: 24px;">
-        <h2>Solucion</h2>
+        <h2>Solución</h2>
         @if ($ticket->solution)
             <article class="panel">
                 <strong>{{ $ticket->solution->summary }}</strong>
                 <p>{{ $ticket->solution->details }}</p>
             </article>
         @else
-            <p class="muted">Este ticket todavia no tiene solucion documentada.</p>
+            <p class="muted">Este ticket todavía no tiene solución documentada.</p>
         @endif
     </section>
 @endsection

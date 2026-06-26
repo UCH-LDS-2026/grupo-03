@@ -16,13 +16,13 @@
         @method('PUT')
 
         <div class="field">
-            <label for="title">Titulo</label>
+            <label for="title">Título</label>
             <input id="title" name="title" value="{{ old('title', $ticket->title) }}" required>
             @error('title') <span class="error">{{ $message }}</span> @enderror
         </div>
 
         <div class="field">
-            <label for="description">Descripcion</label>
+            <label for="description">Descripción</label>
             <textarea id="description" name="description" required>{{ old('description', $ticket->description) }}</textarea>
             @error('description') <span class="error">{{ $message }}</span> @enderror
         </div>
@@ -30,7 +30,7 @@
         @if ($canEditAll)
             <div class="grid">
                 <div class="field">
-                    <label for="area_id">Area</label>
+                    <label for="area_id">Área</label>
                     <select id="area_id" name="area_id" required>
                         @foreach ($areas as $area)
                             <option value="{{ $area->id }}" @selected(old('area_id', $ticket->area_id) == $area->id)>{{ $area->name }}</option>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="field">
-                    <label for="ticket_category_id">Categoria</label>
+                    <label for="ticket_category_id">Categoría</label>
                     <select id="ticket_category_id" name="ticket_category_id" required>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" @selected(old('ticket_category_id', $ticket->ticket_category_id) == $category->id)>{{ $category->name }}</option>
@@ -112,13 +112,13 @@
 
             <div class="grid">
                 <div class="field">
-                    <label for="solution_summary">Resumen de solucion</label>
+                    <label for="solution_summary">Resumen de solución</label>
                     <input id="solution_summary" name="solution_summary" value="{{ old('solution_summary', $ticket->solution?->summary) }}">
                     @error('solution_summary') <span class="error">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="field">
-                    <label for="solution_details">Detalle de solucion</label>
+                    <label for="solution_details">Detalle de solución</label>
                     <textarea id="solution_details" name="solution_details">{{ old('solution_details', $ticket->solution?->details) }}</textarea>
                     @error('solution_details') <span class="error">{{ $message }}</span> @enderror
                 </div>
